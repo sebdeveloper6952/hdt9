@@ -225,11 +225,13 @@ public class BinarySearchTree<K extends Comparable<K>,V>
     {
         protected K key;
         protected V value;
+        protected int color; // for red-black tree
         
         public SEntry(K k, V v)
         {
             key = k;
             value = v;
+            color = 0; // start as red
         }
         
         @Override
@@ -252,5 +254,7 @@ public class BinarySearchTree<K extends Comparable<K>,V>
             return temp;
         }
         
+        public void setColor(int c) { color = c; }
+        public int getColor() { return color; }
     }
 }
