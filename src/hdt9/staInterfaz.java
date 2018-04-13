@@ -64,7 +64,7 @@ public class staInterfaz extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 240, 350));
 
-        jButton1.setText("Seleccione diccionario");
+        jButton1.setText("Wörterbuch wählen");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -72,7 +72,7 @@ public class staInterfaz extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 440, -1, -1));
 
-        jButton2.setText("Seleccione Archivo");
+        jButton2.setText("Datei auswählen");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -80,16 +80,16 @@ public class staInterfaz extends javax.swing.JFrame {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 440, -1, 30));
 
-        jButton3.setText("Traducir");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 440, -1, -1));
+        jButton3.setText("Datei übersetzen");
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 440, -1, -1));
 
-        jLabel1.setText("Diccionario seleccionado");
+        jLabel1.setText("Ausgewähltes Wörterbuch");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
 
-        jLabel2.setText("Archivo que se va a traducir");
+        jLabel2.setText("Zu übersetzende Datei");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, -1, 20));
 
-        jLabel3.setText("Traduccion");
+        jLabel3.setText("Übersetzung");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, -1, -1));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Splay Baum", "RBT" }));
