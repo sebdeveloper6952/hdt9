@@ -15,9 +15,6 @@ public class RBTreeMap<K extends Comparable<K>,V>
     public V put(K key, V value)
     {
         RBTEntry<K,V> prev = tree.add(new RBTEntry<>(key, value, true));
-        // make the children of new node black
-        tree.actionNode.left().setValue(new RBTEntry<>(null, null, false));
-        tree.actionNode.right().setValue(new RBTEntry<>(null, null, false));
         // restructure tree
         insertRestructure(tree.actionNode);
         if(prev == null) return null;
@@ -61,20 +58,6 @@ public class RBTreeMap<K extends Comparable<K>,V>
             if(node.parent().isLeftChild()) un = gp.right();
             else un = gp.left();
         }
-    }
-    
-    protected void insertCase3(BinaryTree<RBTEntry<K,V>> node)
-    {
-        
-    }
-    
-    protected void insertCase4(BinaryTree<RBTEntry<K,V>> node)
-    {
-        
-    }
-    
-    protected void insertCase5(BinaryTree<RBTEntry<K,V>> node)
-    {
         
     }
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hdt9;
 
 import java.io.BufferedReader;
@@ -27,12 +22,12 @@ public class staInterfaz extends javax.swing.JFrame
         Scanner s = null;
         try{
             s = new Scanner(new BufferedReader(new FileReader("src/engspa.dic")));
-            while(s.hasNextLine()){
+            while(s.hasNextLine())
+            {
                 String temp = s.nextLine();
                 String[] Divisiones = temp.split("\t");
                 String[] DivisionesSpa = Divisiones[1].split(";");
                 jTextArea1.append(Divisiones[0] + " " + "=" + " " + DivisionesSpa[0] + "\n");
-                           
             }
         }
         catch (FileNotFoundException ex) {

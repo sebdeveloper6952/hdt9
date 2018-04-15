@@ -20,13 +20,16 @@ public class RBTEntry<K extends Comparable<K>,V>
     {
         this.key = key;
         this.value = value;
-        isRed = true;
+        this.isRed = isRed;
     }
 
     public void setKey(K key) { this.key = key; }
     public K getKey() { return key; }
     public void setValue(V value) { this.value = value; }
     public V getValue() { return value; }
+    public void setRed() { isRed = true; }
+    public void setBlack() { isRed = false; }
+    public boolean isRed() { return isRed; }
 
     @Override
     public int compareTo(RBTEntry<K, V> o) 
