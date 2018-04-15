@@ -16,12 +16,13 @@ import java.util.logging.Logger;
  *
  * @author Fernando Figueroa
  */
-public class staInterfaz extends javax.swing.JFrame {
-
+public class staInterfaz extends javax.swing.JFrame 
+{
     /**
      * Creates new form staInterfaz
      */
-    public staInterfaz() {
+    public staInterfaz()
+    {
         initComponents();
         Scanner s = null;
         try{

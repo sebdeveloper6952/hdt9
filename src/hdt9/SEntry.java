@@ -10,11 +10,13 @@ public class SEntry<K extends Comparable<K>,V> implements Entry<K,V>
 {
         protected K key;
         protected V value;
+        protected boolean isRed;
         
-        public SEntry(K k, V v)
+        public SEntry(K k, V v, boolean isRed)
         {
             key = k;
             value = v;
+            this.isRed = isRed;
         }
         
         @Override
@@ -36,4 +38,8 @@ public class SEntry<K extends Comparable<K>,V> implements Entry<K,V>
             this.value = value;
             return temp;
         }
+        
+        public void setRed() { isRed = true; }
+        public void setBlack() { isRed = false; }
+        public boolean isRed() { return isRed; }
 }
