@@ -22,12 +22,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class staInterfaz extends javax.swing.JFrame 
 {
-    /**
-     * Creates new form staInterfaz
-     */
+    
+    SplayTreeMap<String, String> SteSplay;
+    
     public staInterfaz()
     {
         initComponents();
+        SteSplay = new SplayTreeMap<>();
         Scanner s = null;
         try{
             s = new Scanner(new BufferedReader(new FileReader("src/engspa.dic")));
@@ -36,6 +37,15 @@ public class staInterfaz extends javax.swing.JFrame
                 String[] Divisiones = temp.split("\t");
                 String[] DivisionesSpa = Divisiones[1].split(";");
                 jTextArea1.append(Divisiones[0] + " " + "=" + " " + DivisionesSpa[0] + "\n");
+                if(SteSplay.contains(Divisiones[0]))
+                {
+                    continue;
+                }
+                else
+                {
+                    SteSplay.put(Divisiones[0], DivisionesSpa[0]);
+                    
+                }
                            
             }
         }
@@ -102,6 +112,11 @@ public class staInterfaz extends javax.swing.JFrame
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 440, -1, 30));
 
         jButton3.setText("Datei übersetzen");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 440, -1, -1));
 
         jLabel1.setText("Ausgewähltes Wörterbuch");
@@ -172,6 +187,30 @@ public class staInterfaz extends javax.swing.JFrame
         }
             
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        String[] textotemp = jTextArea2.getText().split(" ");
+        for(String temp1: textotemp)
+        {
+            temp1 = temp1.replace("\n", "");
+            String esp = SteSplay.get(temp1);
+            if(esp == null)
+            {
+                jTextArea3.append("*" + temp1 + "*" + " ");
+            }
+            else
+            {
+                jTextArea3.append(esp + " ");
+                
+                
+            }
+        }
+        
+        
+        
+            
+        
+    }//GEN-LAST:event_jButton3MouseClicked
 
     /**
      * @param args the command line arguments
