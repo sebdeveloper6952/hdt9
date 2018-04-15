@@ -77,6 +77,7 @@ public class staInterfaz extends javax.swing.JFrame
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -132,6 +133,13 @@ public class staInterfaz extends javax.swing.JFrame
             }
         });
 
+        jButton1.setText("wahlen");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -139,15 +147,22 @@ public class staInterfaz extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 748, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(jComboBox1, 0, 107, Short.MAX_VALUE)
-                .addGap(17, 17, 17))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jComboBox1, 0, 107, Short.MAX_VALUE)
+                        .addGap(17, 17, 17))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(106, 106, 106)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1))
         );
 
         pack();
@@ -203,6 +218,53 @@ public class staInterfaz extends javax.swing.JFrame
         }
     }//GEN-LAST:event_jButton3MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        if (jComboBox1.getSelectedIndex()==0)
+        {
+            initComponents();
+        SteSplay = new SplayTreeMap<>();
+        Scanner s = null;
+        try{
+            s = new Scanner(new BufferedReader(new FileReader("src/engspa.dic")));
+            while(s.hasNextLine())
+            {
+                String temp = s.nextLine();
+                String[] Divisiones = temp.split("\t");
+                String[] DivisionesSpa = Divisiones[1].split(";");
+                jTextArea1.append(Divisiones[0] + " " + "=" + " " + DivisionesSpa[0] + "\n");
+                System.out.println("hola");
+                if(SteSplay.contains(Divisiones[0]))
+                {
+                    continue;
+                }
+                else
+                {
+                    SteSplay.put(Divisiones[0], DivisionesSpa[0]);
+                    
+                }
+            }
+        }
+        catch (FileNotFoundException ex) 
+        {
+            Logger.getLogger(staInterfaz.class.getName()).log(Level.SEVERE, null, ex);
+        }        finally{
+            if(s != null){
+                s.close();
+                         }
+                        }
+        }
+        
+        else if(jComboBox1.getSelectedIndex()==1)
+        {
+            
+        }
+            
+        
+        
+      
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -239,6 +301,7 @@ public class staInterfaz extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
