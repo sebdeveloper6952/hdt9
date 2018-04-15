@@ -196,15 +196,8 @@ public class staInterfaz extends javax.swing.JFrame
             else
             {
                 jTextArea3.append(esp + " ");
-                
-                
             }
         }
-        
-        
-        
-            
-        
     }//GEN-LAST:event_jButton3MouseClicked
 
     /**
