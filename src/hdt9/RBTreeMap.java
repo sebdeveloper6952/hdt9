@@ -1,18 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hdt9;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 /**
- * @author sevic69
+ * @author sebdeveloper6952
  */
 public class RBTreeMap<K extends Comparable<K>,V> extends BinarySearchTree<K,V>
 {
@@ -27,7 +16,8 @@ public class RBTreeMap<K extends Comparable<K>,V> extends BinarySearchTree<K,V>
     
     public V remove(K key)
     {
-        return null;
+        V removed = super.remove(key);
+        return removed;
     }
     
     public V get(K key)

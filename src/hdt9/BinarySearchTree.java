@@ -215,46 +215,4 @@ public class BinarySearchTree<K extends Comparable<K>,V>
         if(node.right() != null && !node.right().isEmpty()) 
             inOrderRecursive(node.right(), list);
     }
-    
-    /**
-     * Clase utilizada internamente por el arbol binario de busqueda.
-     * @param <K>
-     * @param <V> 
-     */
-    protected static class SEntry<K,V> implements Entry<K,V>
-    {
-        protected K key;
-        protected V value;
-        protected int color; // for red-black tree
-        
-        public SEntry(K k, V v)
-        {
-            key = k;
-            value = v;
-            color = 0; // start as red
-        }
-        
-        @Override
-        public K getKey() 
-        {
-            return key;
-        }
-
-        @Override
-        public V getValue() 
-        {
-            return value;
-        }
-
-        @Override
-        public V setValue(V value) 
-        {
-            V temp = value;
-            this.value = value;
-            return temp;
-        }
-        
-        public void setColor(int c) { color = c; }
-        public int getColor() { return color; }
-    }
 }
