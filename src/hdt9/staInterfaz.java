@@ -5,6 +5,13 @@
  */
 package hdt9;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Fernando Figueroa
@@ -16,6 +23,24 @@ public class staInterfaz extends javax.swing.JFrame {
      */
     public staInterfaz() {
         initComponents();
+        Scanner s = null;
+        try{
+            s = new Scanner(new BufferedReader(new FileReader("src/engspa.dic")));
+            while(s.hasNextLine()){
+                String temp = s.nextLine();
+                String[] Divisiones = temp.split("\t");
+                String[] DivisionesSpa = Divisiones[1].split(";");
+                jTextArea1.append(Divisiones[0] + " " + "=" + " " + DivisionesSpa[0] + "\n");
+                           
+            }
+        }
+        catch (FileNotFoundException ex) {
+            Logger.getLogger(staInterfaz.class.getName()).log(Level.SEVERE, null, ex);
+        }        finally{
+            if(s != null){
+                s.close();
+            }
+        }
     }
 
     /**
