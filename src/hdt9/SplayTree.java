@@ -1,7 +1,8 @@
 package hdt9;
 /**
- *
- * @author sebdeveloper6952
+ * @author Sebastian Arriola 11463
+ * @author Fernando Figueroa 14175
+ * @author Jose Andres Areans 14470
  */
 public class SplayTree<E extends Comparable<E>> 
         extends BinarySearchTree<E>

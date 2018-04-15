@@ -12,8 +12,9 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- *
- * @author Fernando Figueroa
+ * @author Sebastian Arriola 11463
+ * @author Fernando Figueroa 14175
+ * @author Jose Andres Areans 14470
  */
 public class staInterfaz extends javax.swing.JFrame 
 {
@@ -200,12 +201,16 @@ public class staInterfaz extends javax.swing.JFrame
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        String esp = null;
         String[] textotemp = jTextArea2.getText().split(" ");
+        int i = 0;
         for(String temp1: textotemp)
         {
             temp1 = temp1.replace("\n", "");
-            //String esp = SteSplay.get(temp1);
-            String esp = tree.get(temp1);
+            temp1 = temp1.replace(",", "");
+            temp1 = temp1.replace(".", "");
+            if(jComboBox1.getSelectedIndex() == 0) esp = SteSplay.get(temp1);
+            else if(jComboBox1.getSelectedIndex() == 1) esp = tree.get(temp1);
             if(esp == null)
             {
                 jTextArea3.append("*" + temp1 + "*" + " ");
@@ -214,6 +219,12 @@ public class staInterfaz extends javax.swing.JFrame
             {
                 jTextArea3.append(esp + " ");
             }
+            i++;
+            if(i == 10)
+            {
+                i = 0;
+                jTextArea3.append("\n");
+            }
         }
     }//GEN-LAST:event_jButton3MouseClicked
 
@@ -221,73 +232,68 @@ public class staInterfaz extends javax.swing.JFrame
 
         if (jComboBox1.getSelectedIndex()==0)
         {
-            initComponents();
-        SteSplay = new SplayTreeMap<>();
-        Scanner s = null;
-        try{
-            s = new Scanner(new BufferedReader(new FileReader("src/engspa.dic")));
-            while(s.hasNextLine())
-            {
-                String temp = s.nextLine();
-                String[] Divisiones = temp.split("\t");
-                String[] DivisionesSpa = Divisiones[1].split(";");
-                jTextArea1.append(Divisiones[0] + " " + "=" + " " + DivisionesSpa[0] + "\n");
-                if(SteSplay.contains(Divisiones[0]))
+            SteSplay = new SplayTreeMap<>();
+            Scanner s = null;
+            try{
+                s = new Scanner(new BufferedReader(new FileReader("src/engspa.dic")));
+                while(s.hasNextLine())
                 {
-                    continue;
-                }
-                else
-                {
-                    SteSplay.put(Divisiones[0], DivisionesSpa[0]);
-                    
+                    String temp = s.nextLine();
+                    String[] Divisiones = temp.split("\t");
+                    String[] DivisionesSpa = Divisiones[1].split(";");
+                    jTextArea1.append(Divisiones[0] + " " + "=" + " " + DivisionesSpa[0] + "\n");
+                    if(SteSplay.contains(Divisiones[0]))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        SteSplay.put(Divisiones[0], DivisionesSpa[0]);
+
+                    }
                 }
             }
-        }
-        catch (FileNotFoundException ex) 
-        {
-            Logger.getLogger(staInterfaz.class.getName()).log(Level.SEVERE, null, ex);
-        }        finally{
-            if(s != null){
-                s.close();
-                         }
-                        }
+            catch (FileNotFoundException ex) 
+            {
+                Logger.getLogger(staInterfaz.class.getName()).log(Level.SEVERE, null, ex);
+            }        finally{
+                if(s != null){
+                    s.close();
+                             }
+                            }
         }
         
         else if(jComboBox1.getSelectedIndex()==1)
         {
-         
-        tree = new RBTreeMap<>();
-        Scanner s = null;
-        try{
-            s = new Scanner(new BufferedReader(new FileReader("src/engspa.dic")));
-            while(s.hasNextLine())
-            {
-                String temp = s.nextLine();
-                String[] Divisiones = temp.split("\t");
-                String[] DivisionesSpa = Divisiones[1].split(";");
-                jTextArea1.append(Divisiones[0] + " " + "=" + " " + DivisionesSpa[0] + "\n");
-                if(tree.contains(Divisiones[0]))
+            tree = new RBTreeMap<>();
+            Scanner s = null;
+            try{
+                s = new Scanner(new BufferedReader(new FileReader("src/engspa.dic")));
+                while(s.hasNextLine())
                 {
-                    continue;
-                }
-                else
-                {
-                    tree.put(Divisiones[0], DivisionesSpa[0]);
-                    
+                    String temp = s.nextLine();
+                    String[] Divisiones = temp.split("\t");
+                    String[] DivisionesSpa = Divisiones[1].split(";");
+                    jTextArea1.append(Divisiones[0] + " " + "=" + " " + DivisionesSpa[0] + "\n");
+                    if(tree.contains(Divisiones[0]))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        tree.put(Divisiones[0], DivisionesSpa[0]);
+
+                    }
                 }
             }
-        }
-        catch (FileNotFoundException ex) 
-        {
-            Logger.getLogger(staInterfaz.class.getName()).log(Level.SEVERE, null, ex);
-        }        finally{
-            if(s != null){
-                s.close();
-                         }
-                        }
-            
-            
-            
+            catch (FileNotFoundException ex) 
+            {
+                Logger.getLogger(staInterfaz.class.getName()).log(Level.SEVERE, null, ex);
+            }        finally{
+                if(s != null){
+                    s.close();
+                             }
+                            }
         }
             
         
