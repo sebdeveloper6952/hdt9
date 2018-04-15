@@ -1,39 +1,37 @@
 package hdt9;
-
-import java.util.Map.Entry;
-
 /**
  *
  * @author sebdeveloper6952
  */
-public class SplayTree<K extends Comparable<K>, V> extends BinarySearchTree<K,V>
+public class SplayTree<E extends Comparable<E>> 
+        extends BinarySearchTree<E>
 {
-    public V put(K key, V value)
+    public E add(E value)
     {
-        V old = super.put(key, value);
+        E old = super.add(value);
         splay(actionNode);
         return old;
     }
     
-    public V remove(K key)
+    public E remove(E element)
     {
-        V old = super.remove(key);
+        E old = super.remove(element);
         if(actionNode != null) splay(actionNode);
         return old;
     }
     
-    public boolean contains(K key)
+    public boolean contains(E element)
     {
-        boolean b = super.contains(key);
+        boolean b = super.contains(element);
         if(b) splay(actionNode);
         return b;
     }
     
-    public V get(K key)
+    public E get(E element)
     {
-        V v = super.get(key);
-        if(v != null) splay(actionNode);
-        return v;
+        E e = super.get(element);
+        if(e != null) splay(actionNode);
+        return e;
     }
     
     /**
@@ -43,12 +41,12 @@ public class SplayTree<K extends Comparable<K>, V> extends BinarySearchTree<K,V>
      * pre: node is not the root of the tree.
      * post: node is the root of the tree.
      */
-    protected void splay(BinaryTree<Entry<K,V>> node)
+    protected void splay(BinaryTree<E> node)
     {
         if(node.equals(root) || node == null) return;
         // get the parent and grandparent of this node
-        BinaryTree<Entry<K,V>> gp = null;
-        BinaryTree<Entry<K,V>> p = null;
+        BinaryTree<E> gp = null;
+        BinaryTree<E> p = null;
         boolean hasGp = false;
         while(node.parent() != null)
         {

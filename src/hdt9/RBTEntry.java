@@ -5,42 +5,32 @@
  */
 package hdt9;
 
-import java.util.Map.Entry;
-
 /**
  *
  * @author sevic69
  */
-public class RBTEntry<K extends Comparable<K>, V> implements Entry<K,V>
+public class RBTEntry<K extends Comparable<K>,V>
+        implements Comparable<RBTEntry<K,V>>
 {
     protected K key;
     protected V value;
     protected boolean isRed;
 
-    public RBTEntry(K k, V v)
+    public RBTEntry(K key, V value, boolean isRed)
     {
-        key = k;
-        value = v;
+        this.key = key;
+        this.value = value;
         isRed = true;
     }
 
-    @Override
-    public K getKey() 
-    {
-        return key;
-    }
+    public void setKey(K key) { this.key = key; }
+    public K getKey() { return key; }
+    public void setValue(V value) { this.value = value; }
+    public V getValue() { return value; }
 
     @Override
-    public V getValue() 
+    public int compareTo(RBTEntry<K, V> o) 
     {
-        return value;
-    }
-
-    @Override
-    public V setValue(V value) 
-    {
-        V temp = value;
-        this.value = value;
-        return temp;
+        return key.compareTo(o.getKey());
     }
 }

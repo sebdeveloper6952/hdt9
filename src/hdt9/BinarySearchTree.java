@@ -8,10 +8,10 @@ import java.util.Map.Entry;
  *
  * @author sebdeveloper6952
  */
-public class BinarySearchTree<K extends Comparable<K>,V>
+public class BinarySearchTree<E extends Comparable<E>>
 {
-    protected BinaryTree<Entry<K,V>> root;
-    protected BinaryTree<Entry<K,V>> actionNode;
+    protected BinaryTree<E> root;
+    protected BinaryTree<E> actionNode;
     protected int size;
     
     public BinarySearchTree()
@@ -36,39 +36,35 @@ public class BinarySearchTree<K extends Comparable<K>,V>
        return size;
     }
     
-    /**
-     * Add provided key-value pair to tree. If key was already present, it
-     * updates the value associated with it.
-     * @param key
-     * @param value
-     * @return Old value associated with key, or null if key was not in tree.
-     */
-    public V put(K key, V value)
+    public E add(E value)
     {
         // create new entry to be inserted
-        Entry<K,V> e = new SEntry(key, value);
-        V old = null;
+        //Entry<K,V> e = new SEntry(key, value);
+        E old = null;
         if (root.isEmpty())
         {
-            root = new BinaryTree<>(e);
+            root = new BinaryTree<>(value);
             actionNode = root;
             size++;
         }
         else
         {
           // find node where provided key should go
-          BinaryTree<Entry<K,V>> foundNode = findNode(key, root);
+          BinaryTree<E> foundNode = findNode(value, root);
           // save found node as action-node for use in other algorithms
           actionNode = foundNode;
           // key already in tree, update value
           if(!foundNode.isEmpty())
           {
-              old = foundNode.value().getValue();
-              foundNode.setValue(e);
+              //old = foundNode.value().getValue();
+              //foundNode.setValue(e);
+              old = foundNode.value();
+              foundNode.setValue(value);
           }
           else
           {
-              foundNode.setValue(e);
+//              foundNode.setValue(e);
+              foundNode.setValue(value);
               // add empty children nodes if needed
               if (foundNode.left()== null)
                   foundNode.setLeft(new BinaryTree<>());
@@ -80,43 +76,27 @@ public class BinarySearchTree<K extends Comparable<K>,V>
         return old;
     }
     
-    /**
-     * Returns true if provided key is found on tree.
-     * @param key Key to search in tree.
-     * @return true if key found, false otherwise.
-     */
-    public boolean contains(K key)
+    public boolean contains(E value)
     {
-        return get(key) == null;
+        return get(value) == null;
     }
     
-    /**
-     * Gets the value associated with the provided key.
-     * @param key Key to search in tree.
-     * @return Value associated with key if it is on the tree, null otherwise.
-     */
-    public V get(K key)
+    public E get(E element)
     {
-        if(key == null || root.isEmpty()) return null;
-        BinaryTree<Entry<K,V>> node = findNode(key, root);
+        if(element == null || root.isEmpty()) return null;
+        BinaryTree<E> node = findNode(element, root);
         if(node.isEmpty()) return null;
         actionNode = node;
-        return node.value().getValue();
+        return node.value();
     }
 
-    /**
-     * Removes key - value pair associated with provided key, if it is found
-     * on the tree.
-     * @param key Key to remove from tree.
-     * @return Value associated with key if found, null otherwise.
-     */
-    public V remove(K key) 
+    public E remove(E value) 
     {
-        if(key == null) return null;
-        BinaryTree<Entry<K,V>> foundNode = findNode(key, root);
+        if(value == null) return null;
+        BinaryTree<E> foundNode = findNode(value, root);
         // key is not in tree
         if(foundNode.isEmpty()) return null;
-        V temp = foundNode.value().getValue();
+        E temp = foundNode.value();
         // handle removing the last node
         if(size == 1)
         {
@@ -132,7 +112,7 @@ public class BinarySearchTree<K extends Comparable<K>,V>
             else
             {
                 // find replacement node
-                BinaryTree<Entry<K,V>> rep = foundNode.right();
+                BinaryTree<E> rep = foundNode.right();
                 while(rep.left().isInternal()) rep = rep.left();
                 // move rep value to foundNode
                 foundNode.setValue(rep.value());
@@ -146,9 +126,9 @@ public class BinarySearchTree<K extends Comparable<K>,V>
         return temp;
     }
 
-    public List<V> valuesInOrder()
+    public List<E> valuesInOrder()
     {
-        List<V> list = new ArrayList<>();
+        List<E> list = new ArrayList<>();
         if(isEmpty()) return list;
         inOrderRecursive(root, list);
         return list;
@@ -160,23 +140,23 @@ public class BinarySearchTree<K extends Comparable<K>,V>
      * @param value
      * @return 
      */
-    protected BinaryTree<Entry<K,V>> findNode(K key, BinaryTree<Entry<K,V>> node)
+    protected BinaryTree<E> findNode(E value, BinaryTree<E> node)
     {
         if(node.isEmpty()) return node;
         else
         {
            // compare current node key with provided key
-           int c =  node.value().getKey().compareTo(key);
+           int c =  node.value().compareTo(value);
            if (c == 0 )return node; // we found the node
            else if (c > 0) // node key > key
            {
                // search left
-               return findNode(key, node.left());
+               return findNode(value, node.left());
            }
            else 
            {
                // search right
-              return findNode(key, node.right()); 
+              return findNode(value, node.right()); 
            }
         }
     }
@@ -185,14 +165,14 @@ public class BinarySearchTree<K extends Comparable<K>,V>
      * Remove external node v and its parent p, and replace p with v's sibling.
      * @param v 
      */
-    protected void removeExternal(BinaryTree<Entry<K,V>> v)
+    protected void removeExternal(BinaryTree<E> v)
     {
         // node is not external
         if(!v.isEmpty()) return;
         // grab v's sibling
-        BinaryTree<Entry<K,V>> s = null;
+        BinaryTree<E> s = null;
         // grab v's parent
-        BinaryTree<Entry<K,V>> p = v.parent();
+        BinaryTree<E> p = v.parent();
         if(v.isLeftChild()) s = p.right();
         else s = p.left();
         if(p.parent() != null)
@@ -207,11 +187,11 @@ public class BinarySearchTree<K extends Comparable<K>,V>
         }
     }
     
-    protected void inOrderRecursive(BinaryTree<Entry<K,V>> node, List<V> list)
+    protected void inOrderRecursive(BinaryTree<E> node, List<E> list)
     {
         if(node.left() != null && !node.left().isEmpty()) 
             inOrderRecursive(node.left(), list);
-        list.add(node.value().getValue());
+        list.add(node.value());
         if(node.right() != null && !node.right().isEmpty()) 
             inOrderRecursive(node.right(), list);
     }
