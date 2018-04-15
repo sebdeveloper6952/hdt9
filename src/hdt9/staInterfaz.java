@@ -18,12 +18,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class staInterfaz extends javax.swing.JFrame 
 {
     
-    SplayTreeMap<String, String> SteSplay;
+    //SplayTreeMap<String, String> SteSplay;
+    RBTreeMap<String, String> tree;
     
     public staInterfaz()
     {
         initComponents();
-        SteSplay = new SplayTreeMap<>();
+        //SteSplay = new SplayTreeMap<>();
+        tree = new RBTreeMap<>();
         Scanner s = null;
         try{
             s = new Scanner(new BufferedReader(new FileReader("src/engspa.dic")));
@@ -33,14 +35,14 @@ public class staInterfaz extends javax.swing.JFrame
                 String[] Divisiones = temp.split("\t");
                 String[] DivisionesSpa = Divisiones[1].split(";");
                 jTextArea1.append(Divisiones[0] + " " + "=" + " " + DivisionesSpa[0] + "\n");
-                if(SteSplay.contains(Divisiones[0]))
+                if(tree.contains(Divisiones[0]))
                 {
                     continue;
                 }
                 else
                 {
-                    SteSplay.put(Divisiones[0], DivisionesSpa[0]);
-                    
+                    //SteSplay.put(Divisiones[0], DivisionesSpa[0]);
+                    tree.put(Divisiones[0], DivisionesSpa[0]);
                 }
             }
         }
@@ -188,7 +190,8 @@ public class staInterfaz extends javax.swing.JFrame
         for(String temp1: textotemp)
         {
             temp1 = temp1.replace("\n", "");
-            String esp = SteSplay.get(temp1);
+            //String esp = SteSplay.get(temp1);
+            String esp = tree.get(temp1);
             if(esp == null)
             {
                 jTextArea3.append("*" + temp1 + "*" + " ");
