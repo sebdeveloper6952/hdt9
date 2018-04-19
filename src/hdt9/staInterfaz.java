@@ -20,39 +20,13 @@ public class staInterfaz extends javax.swing.JFrame
 {
     
     SplayTreeMap<String, String> SteSplay;
-    RBTreeMap<String, String> tree;
+    RBTreeMap<String, String> SteRBT;
     
     public staInterfaz()
     {
         initComponents();
-        SteSplay = new SplayTreeMap<>();
-        Scanner s = null;
-        try{
-            s = new Scanner(new BufferedReader(new FileReader("src/engspa.dic")));
-            while(s.hasNextLine())
-            {
-                String temp = s.nextLine();
-                String[] Divisiones = temp.split("\t");
-                String[] DivisionesSpa = Divisiones[1].split(";");
-                jTextArea1.append(Divisiones[0] + " " + "=" + " " + DivisionesSpa[0] + "\n");
-                if(SteSplay.contains(Divisiones[0]))
-                {
-                    continue;
-                }
-                else
-                {
-                    SteSplay.put(Divisiones[0], DivisionesSpa[0]);
-                    
-                }
-            }
-        }
-        catch (FileNotFoundException ex) {
-            Logger.getLogger(staInterfaz.class.getName()).log(Level.SEVERE, null, ex);
-        }        finally{
-            if(s != null){
-                s.close();
-            }
-        }
+        // por default se construye un arbol splay al iniciar
+        construirSplay();
     }
 
     /**
@@ -71,15 +45,18 @@ public class staInterfaz extends javax.swing.JFrame
         jTextArea2 = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea3 = new javax.swing.JTextArea();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jBtn_EscogerArchivo = new javax.swing.JButton();
+        jBtn_Traducir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        jBtn_EscogerArbol = new javax.swing.JButton();
+        jComboBox_Arboles = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Hoja de Trabajo 9");
+        setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -101,78 +78,69 @@ public class staInterfaz extends javax.swing.JFrame
 
         jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 240, 350));
 
-        jButton2.setText("Datei auswählen");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jBtn_EscogerArchivo.setText("Escoger archivo para traducir");
+        jBtn_EscogerArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                jBtn_EscogerArchivoMouseClicked(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 440, -1, 30));
+        jPanel1.add(jBtn_EscogerArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, -1, 30));
 
-        jButton3.setText("Datei übersetzen");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        jBtn_Traducir.setText("Traducir");
+        jBtn_Traducir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
+                jBtn_TraducirMouseClicked(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 440, -1, -1));
+        jPanel1.add(jBtn_Traducir, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 440, -1, -1));
 
-        jLabel1.setText("Ausgewähltes Wörterbuch");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
+        jLabel1.setText("Diccionario");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, -1, -1));
 
-        jLabel2.setText("Zu übersetzende Datei");
+        jLabel2.setText("Archivo a traducir");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, -1, 20));
 
-        jLabel3.setText("Übersetzung");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, -1, -1));
+        jLabel3.setText("Traduccion");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 30, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Splay Baum", "RBT" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jBtn_EscogerArbol.setText("Escoger");
+        jBtn_EscogerArbol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jBtn_EscogerArbolActionPerformed(evt);
             }
         });
+        jPanel1.add(jBtn_EscogerArbol, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 130, -1, -1));
 
-        jButton1.setText("wahlen");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox_Arboles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Splay", "Red Black" }));
+        jComboBox_Arboles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jComboBox_ArbolesActionPerformed(evt);
             }
         });
+        jPanel1.add(jComboBox_Arboles, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 90, 130, -1));
+
+        jLabel4.setText("Escoger arbol:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 50, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 748, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox1, 0, 107, Short.MAX_VALUE)
-                        .addGap(17, 17, 17))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 899, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(106, 106, 106)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jComboBox_ArbolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_ArbolesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jComboBox_ArbolesActionPerformed
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void jBtn_EscogerArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtn_EscogerArchivoMouseClicked
         JFileChooser fc = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt", "text");
         fc.setFileFilter(filter);
@@ -198,9 +166,9 @@ public class staInterfaz extends javax.swing.JFrame
             }
         }
             
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_jBtn_EscogerArchivoMouseClicked
 
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+    private void jBtn_TraducirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtn_TraducirMouseClicked
         String esp = null;
         String[] textotemp = jTextArea2.getText().split(" ");
         int i = 0;
@@ -209,8 +177,8 @@ public class staInterfaz extends javax.swing.JFrame
             temp1 = temp1.replace("\n", "");
             temp1 = temp1.replace(",", "");
             temp1 = temp1.replace(".", "");
-            if(jComboBox1.getSelectedIndex() == 0) esp = SteSplay.get(temp1);
-            else if(jComboBox1.getSelectedIndex() == 1) esp = tree.get(temp1);
+            if(jComboBox_Arboles.getSelectedIndex() == 0) esp = SteSplay.get(temp1);
+            else if(jComboBox_Arboles.getSelectedIndex() == 1) esp = SteRBT.get(temp1);
             if(esp == null)
             {
                 jTextArea3.append("*" + temp1 + "*" + " ");
@@ -226,80 +194,14 @@ public class staInterfaz extends javax.swing.JFrame
                 jTextArea3.append("\n");
             }
         }
-    }//GEN-LAST:event_jButton3MouseClicked
+    }//GEN-LAST:event_jBtn_TraducirMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBtn_EscogerArbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_EscogerArbolActionPerformed
 
-        if (jComboBox1.getSelectedIndex()==0)
-        {
-            SteSplay = new SplayTreeMap<>();
-            Scanner s = null;
-            try{
-                s = new Scanner(new BufferedReader(new FileReader("src/engspa.dic")));
-                while(s.hasNextLine())
-                {
-                    String temp = s.nextLine();
-                    String[] Divisiones = temp.split("\t");
-                    String[] DivisionesSpa = Divisiones[1].split(";");
-                    jTextArea1.append(Divisiones[0] + " " + "=" + " " + DivisionesSpa[0] + "\n");
-                    if(SteSplay.contains(Divisiones[0]))
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        SteSplay.put(Divisiones[0], DivisionesSpa[0]);
-
-                    }
-                }
-            }
-            catch (FileNotFoundException ex) 
-            {
-                Logger.getLogger(staInterfaz.class.getName()).log(Level.SEVERE, null, ex);
-            }        finally{
-                if(s != null){
-                    s.close();
-                             }
-                            }
-        }
+        if (jComboBox_Arboles.getSelectedIndex()==0) construirSplay();
         
-        else if(jComboBox1.getSelectedIndex()==1)
-        {
-            tree = new RBTreeMap<>();
-            Scanner s = null;
-            try{
-                s = new Scanner(new BufferedReader(new FileReader("src/engspa.dic")));
-                while(s.hasNextLine())
-                {
-                    String temp = s.nextLine();
-                    String[] Divisiones = temp.split("\t");
-                    String[] DivisionesSpa = Divisiones[1].split(";");
-                    jTextArea1.append(Divisiones[0] + " " + "=" + " " + DivisionesSpa[0] + "\n");
-                    if(tree.contains(Divisiones[0]))
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        tree.put(Divisiones[0], DivisionesSpa[0]);
-
-                    }
-                }
-            }
-            catch (FileNotFoundException ex) 
-            {
-                Logger.getLogger(staInterfaz.class.getName()).log(Level.SEVERE, null, ex);
-            }        finally{
-                if(s != null){
-                    s.close();
-                             }
-                            }
-        }
-            
-        
-        
-      
-    }//GEN-LAST:event_jButton1ActionPerformed
+        else if(jComboBox_Arboles.getSelectedIndex()==1) construirRBT();
+    }//GEN-LAST:event_jBtn_EscogerArbolActionPerformed
 
     /**
      * @param args the command line arguments
@@ -335,15 +237,84 @@ public class staInterfaz extends javax.swing.JFrame
             }
         });
     }
+    
+    protected void construirSplay()
+    {
+        SteSplay = new SplayTreeMap<>();
+        Scanner s = null;
+        try
+        {
+            s = new Scanner(new BufferedReader(new FileReader("src/engspa.dic")));
+            while(s.hasNextLine())
+            {
+                String temp = s.nextLine();
+                String[] Divisiones = temp.split("\t");
+                String[] DivisionesSpa = Divisiones[1].split(";");
+                jTextArea1.append(Divisiones[0] + " " + "=" + " " + DivisionesSpa[0] + "\n");
+                if(SteSplay.contains(Divisiones[0]))
+                {
+                    continue;
+                }
+                else
+                {
+                    SteSplay.put(Divisiones[0], DivisionesSpa[0]);
+
+                }
+            }
+        }
+        catch (FileNotFoundException ex) 
+        {
+            Logger.getLogger(staInterfaz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            if(s != null) s.close();
+        }
+    }
+    
+    protected void construirRBT()
+    {
+        SteRBT = new RBTreeMap<>();
+        Scanner s = null;
+        try
+        {
+            s = new Scanner(new BufferedReader(new FileReader("src/engspa.dic")));
+            while(s.hasNextLine())
+            {
+                String temp = s.nextLine();
+                String[] Divisiones = temp.split("\t");
+                String[] DivisionesSpa = Divisiones[1].split(";");
+                jTextArea1.append(Divisiones[0] + " " + "=" + " " + DivisionesSpa[0] + "\n");
+                if(SteRBT.contains(Divisiones[0]))
+                {
+                    continue;
+                }
+                else
+                {
+                    SteRBT.put(Divisiones[0], DivisionesSpa[0]);
+
+                }
+            }
+        }
+        catch (FileNotFoundException ex) 
+        {
+            Logger.getLogger(staInterfaz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            if(s != null) s.close();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jBtn_EscogerArbol;
+    private javax.swing.JButton jBtn_EscogerArchivo;
+    private javax.swing.JButton jBtn_Traducir;
+    private javax.swing.JComboBox<String> jComboBox_Arboles;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
