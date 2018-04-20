@@ -201,6 +201,8 @@ public class staInterfaz extends javax.swing.JFrame
         if (jComboBox_Arboles.getSelectedIndex()==0) construirSplay();
         
         else if(jComboBox_Arboles.getSelectedIndex()==1) construirRBT();
+        // limpiar jTxt_Area de parrafo traducido
+        jTextArea3.setText("");
     }//GEN-LAST:event_jBtn_EscogerArbolActionPerformed
 
     /**
